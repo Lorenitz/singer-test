@@ -52,4 +52,5 @@ target-someoutput --config config.json
 
 ## References and Resources
 Official Website: https://www.singer.io/
+
 GitHub Repository: [Singer Python](https://github.com/singer-io/singer-python)
