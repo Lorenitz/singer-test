@@ -54,3 +54,25 @@ target-someoutput --config config.json
 Official Website: https://www.singer.io/
 
 GitHub Repository: [Singer Python](https://github.com/singer-io/singer-python)
+
+-------------
+
+Usage:
+
+```bash
+# setup virtual envs for singer tap-fixerio
+python3 -m venv ~/.virtualenvs/tap-fixerio
+source ~/.virtualenvs/tap-fixerio/bin/activate
+pip install tap-fixerio
+deactivate
+
+# setup virtual envs for singer target-gsheet
+python3 -m venv ~/.virtualenvs/target-gsheet
+source ~/.virtualenvs/target-gsheet/bin/activate
+pip install target-gsheet
+deactivate
+
+# usage
+~/.virtualenvs/tap-fixerio/bin/tap-fixerio --config fixer_io_config.json | ~/.virtualenvs/target-gsheet/bin/target-gsheet -c config.json >> state.json
+tail -1 state.json > state.json.tmp && mv state.json.tmp state.json
+```
