@@ -1,19 +1,96 @@
 {
-    "type": ["null", "object"],
-    "additionalProperties": false,
-    "properties": {
-	"string_field": {
-	    "type": ["null", "string"]
-	},
-      	"datetime_field": {
-            "type": ["null", "string"],
-            "format": "date-time"
-	},
-  	"integer_field": {
-	    "type": ["null", "integer"]
-        },
-      	"double_field": {
-	    "type": ["null", "number"]
-        }
-    }
-}
+	"type": ["null", "object"],
+	"additionalProperties": false,
+	"properties": {
+	  "Title": {
+		"type": ["null", "string"]
+	  },
+	  "Year": {
+		"type": ["null", "string"]
+	  },
+	  "Rated": {
+		"type": ["null", "string"]
+	  },
+	  "Released": {
+		"type": ["null", "string"],
+		"format": "date"
+	  },
+	  "Runtime": {
+		"type": ["null", "string"]
+	  },
+	  "Genre": {
+		"type": ["null", "string"]
+	  },
+	  "Director": {
+		"type": ["null", "string"]
+	  },
+	  "Writer": {
+		"type": ["null", "string"]
+	  },
+	  "Actors": {
+		"type": ["null", "string"]
+	  },
+	  "Plot": {
+		"type": ["null", "string"]
+	  },
+	  "Language": {
+		"type": ["null", "string"]
+	  },
+	  "Country": {
+		"type": ["null", "string"]
+	  },
+	  "Awards": {
+		"type": ["null", "string"]
+	  },
+	  "Poster": {
+		"type": ["null", "string"],
+		"format": "uri"
+	  },
+	  "Ratings": {
+		"type": ["null", "array"],
+		"items": {
+		  "type": "object",
+		  "properties": {
+			"Source": {
+			  "type": ["null", "string"]
+			},
+			"Value": {
+			  "type": ["null", "string"]
+			}
+		  }
+		}
+	  },
+	  "Metascore": {
+		"type": ["null", "string"]
+	  },
+	  "imdbRating": {
+		"type": ["null", "string"]
+	  },
+	  "imdbVotes": {
+		"type": ["null", "string"]
+	  },
+	  "imdbID": {
+		"type": ["null", "string"]
+	  },
+	  "Type": {
+		"type": ["null", "string"]
+	  },
+	  "DVD": {
+		"type": ["null", "string"]
+	  },
+	  "BoxOffice": {
+		"type": ["null", "string"]
+	  },
+	  "Production": {
+		"type": ["null", "string"]
+	  },
+	  "Website": {
+		"type": ["null", "string"],
+		"format": "uri"
+	  },
+	  "Response": {
+		"type": ["null", "string"]
+	  }
+	}
+  }
+  
