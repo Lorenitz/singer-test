@@ -1,0 +1,55 @@
+{
+    "streams": [
+      {
+        "stream": "movies",
+        "tap_stream_id": "movie_details",
+        "schema": {
+          "properties": {
+            "Title": { "type": ["null", "string"] },
+            "Year": { "type": ["null", "string"] },
+            "Rated": { "type": ["null", "string"] },
+            "Released": { "type": ["null", "string"] },
+            "Runtime": { "type": ["null", "string"] },
+            "Genre": { "type": ["null", "string"] },
+            "Director": { "type": ["null", "string"] },
+            "Writer": { "type": ["null", "string"] },
+            "Actors": { "type": ["null", "string"] },
+            "Plot": { "type": ["null", "string"] },
+            "Language": { "type": ["null", "string"] },
+            "Country": { "type": ["null", "string"] },
+            "Awards": { "type": ["null", "string"] },
+            "Poster": { "type": ["null", "string"] },
+            "Ratings": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Source": { "type": ["null", "string"] },
+                  "Value": { "type": ["null", "string"] }
+                }
+              }
+            },
+            "Metascore": { "type": ["null", "string"] },
+            "imdbRating": { "type": ["null", "string"] },
+            "imdbVotes": { "type": ["null", "string"] },
+            "imdbID": { "type": ["null", "string"] },
+            "Type": { "type": ["null", "string"] },
+            "DVD": { "type": ["null", "string"] },
+            "BoxOffice": { "type": ["null", "string"] },
+            "Production": { "type": ["null", "string"] },
+            "Website": { "type": ["null", "string"] },
+            "Response": { "type": ["null", "string"] }
+          }
+        },
+        "metadata": [
+          {
+            "metadata": {
+              "selected": true
+            },
+            "breadcrumb": []
+          }
+        ]
+      }
+    ]
+  }
+  
