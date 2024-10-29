@@ -1,8 +1,11 @@
 import requests
 import logging
+import urllib.request
 import os
 import json
+import singer
 from dotenv import load_dotenv
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -18,6 +21,31 @@ with open('config.json', 'r') as file:
 api_key = os.getenv("OMDB_API_KEY")
 search_keyword = config["search_keyword"]
 base_url = config["base_url"]
+
+# Define schema for the output
+schema = {
+    "properties": {
+        "Title": {"type": "string"},
+        "Year": {"type": "string"},
+        "Rated": {"type": "string"},
+        "Released": {"type": "string"},
+        "Runtime": {"type": "string"},
+        "Genre": {"type": "string"},
+        "Director": {"type": "string"},
+        "Writer": {"type": "string"},
+        "Actors": {"type": "string"},
+        "Plot": {"type": "string"},
+        "Language": {"type": "string"},
+        "Country": {"type": "string"},
+        "Awards": {"type": "string"},
+        "Poster": {"type": "string"},
+        "imdbRating": {"type": "string"},
+        "imdbVotes": {"type": "string"},
+        "imdbID": {"type": "string"},
+        "Type": {"type": "string"},
+    },
+    "type": "object",
+}
 
 
 def get_search_results(keyword, page=1):
@@ -36,6 +64,11 @@ def get_movie_details(imdb_id):
 
 # Main script execution with pagination
 page = 1
+
+# Emit the schema to the terminal
+singer.write_schema('movies', schema, 'Title')
+singer.write_records('movies', [{'Title': 'string', 'Year' : 'String'}])
+
 while True:
     # Calling the get_search_results passing the keyword and page
     search_results = get_search_results(search_keyword, page)
