@@ -1,10 +1,10 @@
 import requests
 import logging
-import urllib.request
 import os
 import json
 import singer
 from dotenv import load_dotenv
+from utils import get_env, get_config
 
 
 # Dynamically locate config.json
@@ -14,10 +14,18 @@ from dotenv import load_dotenv
 # os.path.join: Finally, this joins the base path with the name config.json, resulting in the full
 # path to config.json, no matter where you run the script from.
 base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# TODO: Code that get the config filename from **argv** instead of the hardcoded 'config.json'
 config_path = os.path.join(base_path, 'config.json')
+
+print(config_path)
+exit(0)
 
 # Load environment variables from .env file
 load_dotenv()
+
+# Get key from environment
+api_key = get_env("OMDB_API_KEY")
 
 #setup logging
 logging.basicConfig(level=logging.INFO)
@@ -26,10 +34,11 @@ logging.basicConfig(level=logging.INFO)
 with open(config_path, 'r') as file:
     config = json.load(file)
 
+#Search by raise error in python
 
-api_key = os.getenv("OMDB_API_KEY")
-search_keyword = config["search_keyword"]
-base_url = config["base_url"]
+search_keyword = get_config("search_keyword", config)
+base_url = get_config("base_url", config)
+
 
 # Define schema for the output
 schema = {
