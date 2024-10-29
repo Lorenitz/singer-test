@@ -7,6 +7,15 @@ import singer
 from dotenv import load_dotenv
 
 
+# Dynamically locate config.json
+# os.path.abspath(__file__) -> This giver you the absolute path to the current file. AKA, tap.py
+# os.path.dirname() --> By calling this twice, you move up two directory levels. The first call moves up from 
+# tap.py to tap_imdb folder, and the second moves up from tap_imdb to the main project folder
+# os.path.join: Finally, this joins the base path with the name config.json, resulting in the full
+# path to config.json, no matter where you run the script from.
+base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+config_path = os.path.join(base_path, 'config.json')
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -14,7 +23,7 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 
 # Loading configuration from config.json
-with open('config.json', 'r') as file:
+with open(config_path, 'r') as file:
     config = json.load(file)
 
 
