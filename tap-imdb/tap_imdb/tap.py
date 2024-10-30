@@ -2,6 +2,7 @@ import requests
 import logging
 import os
 import json
+import sys
 import singer
 from dotenv import load_dotenv
 from utils import get_env, get_config
@@ -13,12 +14,42 @@ from utils import get_env, get_config
 # tap.py to tap_imdb folder, and the second moves up from tap_imdb to the main project folder
 # os.path.join: Finally, this joins the base path with the name config.json, resulting in the full
 # path to config.json, no matter where you run the script from.
-base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # TODO: Code that get the config filename from **argv** instead of the hardcoded 'config.json'
-config_path = os.path.join(base_path, 'config.json')
+#config_path = os.path.join(base_path, 'config.json')
 
-print(config_path)
+def load_config(filename):
+    #Check if a config filename is passed as an argument
+    # Load configuration from the specified file
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    config_path = os.path.join(base_path, 'config.json')
+    filename = config_path
+
+    with open(filename, 'r') as file:
+        return json.load(file)    
+
+# Check if the config file was provided as an argument
+if len(sys.argv) > 1:
+    filename = sys.argv[1]
+else:
+    # If not provided, raise an erro or set a default file
+    raise ValueError("Please provide a configuration filename as an argument")
+
+# Load configuration
+try:
+    config = load_config(filename)
+    search_keyword = config["search_keyword"]
+    base_url = config["base_url"]
+except KeyError as e:
+    print(f"Missing configuration key: {e}")
+    sys.exit(1)
+except Exception as e:
+    print(f"Failed to load config: {e}")
+    sys.exit(1)
+
+
+print(filename)
 exit(0)
 
 # Load environment variables from .env file
