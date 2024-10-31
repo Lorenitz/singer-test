@@ -20,18 +20,24 @@ from utils import get_env, get_config
 #config_path = os.path.join(base_path, 'config.json')
 
 def load_config(filename):
-    #Check if a config filename is passed as an argument
+    # Check if a config filename is passed as an argument
     # Load configuration from the specified file
-    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    config_path = os.path.join(base_path, 'config.json')
-    filename = config_path
+    config_path = os.path.join(os.getcwd(), filename)
 
-    with open(filename, 'r') as file:
-        return json.load(file)    
+    with open(config_path, 'r') as file:
+        return json.load(file)
+    
+def get_argument(names, argv):
+    # This function return the value for the argument of the givin name
+    # Example: --port 80 (calling get_argument(["--port"], argv) will return 80)
+    for i, arg in enumerate(argv):
+        if arg in names:
+            return argv[i+1]
 
+# how to get a specific place in a array, this + 1
 # Check if the config file was provided as an argument
 if len(sys.argv) > 1:
-    filename = sys.argv[1]
+    filename = get_argument(["-c", "--config"], sys.argv)
 else:
     # If not provided, raise an erro or set a default file
     raise ValueError("Please provide a configuration filename as an argument")
@@ -49,9 +55,6 @@ except Exception as e:
     sys.exit(1)
 
 
-print(filename)
-exit(0)
-
 # Load environment variables from .env file
 load_dotenv()
 
@@ -61,11 +64,6 @@ api_key = get_env("OMDB_API_KEY")
 #setup logging
 logging.basicConfig(level=logging.INFO)
 
-# Loading configuration from config.json
-with open(config_path, 'r') as file:
-    config = json.load(file)
-
-#Search by raise error in python
 
 search_keyword = get_config("search_keyword", config)
 base_url = get_config("base_url", config)
