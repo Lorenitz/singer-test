@@ -128,3 +128,7 @@ class TapIMDB():
                 except requests.RequestException as e:
                     logging.error(f"Error retrieving details for {result['imdbID']}: {e}")
             page += 1 #Move to the next page
+
+if __name__ == '__main__':
+    tap = TapIMDB()
+    tap.run()
