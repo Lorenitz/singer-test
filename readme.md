@@ -76,3 +76,7 @@ deactivate
 ~/.virtualenvs/tap-fixerio/bin/tap-fixerio --config fixer_io_config.json | ~/.virtualenvs/target-gsheet/bin/target-gsheet -c config.json >> state.json
 tail -1 state.json > state.json.tmp && mv state.json.tmp state.json
 ```
+
+# usage to run the script to get OMDB data
+python3 tap.py -c ../config.json | ~/.virtualenvs/target-gsheet/bin/target-gsheet -c /workspaces/singer-test/config.json
+```
