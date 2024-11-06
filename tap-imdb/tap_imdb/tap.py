@@ -8,17 +8,6 @@ from dotenv import load_dotenv
 from utils import get_env, get_config
 
 
-# Dynamically locate config.json
-# os.path.abspath(__file__) -> This giver you the absolute path to the current file. AKA, tap.py
-# os.path.dirname() --> By calling this twice, you move up two directory levels. The first call moves up from 
-# tap.py to tap_imdb folder, and the second moves up from tap_imdb to the main project folder
-# os.path.join: Finally, this joins the base path with the name config.json, resulting in the full
-# path to config.json, no matter where you run the script from.
-#base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# TODO: Code that get the config filename from **argv** instead of the hardcoded 'config.json'
-#config_path = os.path.join(base_path, 'config.json')
-
 def load_config(filename):
     # Check if a config filename is passed as an argument
     # Load configuration from the specified file
@@ -114,7 +103,7 @@ page = 1
 
 # Emit the schema to the terminal
 singer.write_schema('movies', schema, 'Title')
-singer.write_records('movies', [{'Title': 'string', 'Year' : 'String'}])
+#singer.write_records('movies', [{'Title': 'string', 'Year' : 'String'}])
 
 while True:
     # Calling the get_search_results passing the keyword and page
@@ -129,6 +118,7 @@ while True:
             details = get_movie_details(result["imdbID"])
             if "Title" in details:
                 logging.info(f"Retrieved details:{details}")
+                singer.write_records('movies', [details])
             else:
                 logging.warning(f"No details found for {result['imdbID']}")
         except requests.RequestException as e:
